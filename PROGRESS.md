@@ -19,7 +19,7 @@ Legend: teach page = the `#/pattern/<id>` page text · template = the reusable J
 | 3 | Sliding Window | ✅ | ✅ | **11 / 11** ✅ | 4E 5M 2H † |
 | 4 | Stack & Monotonic Stack | ✅ | ✅ | **12 / 12** ✅ | 7E 4M 1H |
 | 5 | Binary Search | ✅ | ✅ | **12 / 12** ✅ | 8E 3M 1H |
-| 6 | Linked List | ✅ | ✅ | 0 / 14 | 9E 4M 1H |
+| 6 | Linked List | ✅ | ✅ | **14 / 14** ✅ | 9E 4M 1H |
 | 7 | Trees: BFS & DFS | ✅ | ✅ | 0 / 18 | 12E 4M 2H |
 | 8 | Tries | ✅ | ✅ | 0 / 5 | 1E 3M 1H |
 | 9 | Heap / Priority Queue | ✅ | ✅ | 0 / 10 | 5E 4M 1H |
@@ -37,8 +37,9 @@ sliding-window problems; the technique gets interesting at Medium. Rather than p
 pattern with obscure Easy problems, it drops to 4 Easy and Math & Geometry, which has
 Easy problems to spare, picks the slot up. The whole-set target of 55/35/10 is unchanged.
 
-**Written: 15 of ~194.** All 17 teach pages and all 17 Java templates are live and
-compile under JDK 11.
+**Written: 76 of ~194 (39%).** Patterns 1 to 6 are complete. All 17 teach pages and all
+17 Java templates are live and compile under JDK 11, and every solution also exists as a
+runnable `.java` file under [`java/src`](java/src).
 
 ---
 
@@ -74,13 +75,17 @@ compile under JDK 11.
 Both gates must print `ALL GREEN` before a pattern counts as written.
 
 ```
-2026-08-11  scaffold + arrays-hashing
+2026-08-11  patterns 1-6 complete
 
 $ node tools/verify-java.mjs --run
-loaded 17 patterns, 17 templates, 15 problems
-compile: 32/32 passed
-run: 15/15 problems produced the expected output
-mix: 15 problems · Easy 10 (67%) · Medium 4 (27%) · Hard 1 (7%)
+loaded 17 patterns, 17 templates, 76 problems
+compile: 93/93 passed
+run: 76/76 problems produced the expected output
+mix: 76 problems · Easy 46 (61%) · Medium 23 (30%) · Hard 7 (9%)
+ALL GREEN
+
+$ node tools/export-java.mjs --compile
+javac: all files compiled clean
 ALL GREEN
 
 $ node tools/smoke-test.mjs --file
@@ -90,35 +95,33 @@ ALL GREEN: 56 checks passed
 $ node tools/smoke-test.mjs
 loading http://localhost:8765/index.html
 ALL GREEN: 56 checks passed
-
-$ node tools/export-java.mjs --compile
-wrote 49 files under java/
-javac: 47/47 files compiled clean
-ALL GREEN
-
-$ java -cp java/out lct.arrayshashing.twosum.Main
-[0, 1]
-[1, 2]
-[0, 1]
 ```
 
-The mix looks Easy-heavy while only pattern 1 exists. It converges on 55/35/10 as the
-later, harder patterns land. The dashboard prints the live mix at the bottom.
+Per-pattern history: arrays-hashing 15/15, two-pointers 12/12, sliding-window 11/11,
+stack 12/12, binary-search 12/12, linked-list 14/14. Every one green on all three gates
+before its commit.
+
+The mix is still slightly Easy-heavy at 61/30/9 because the remaining eleven patterns
+(Trees onwards) carry most of the Medium and Hard problems. It converges on 55/35/10 as
+they land. The dashboard prints the live mix at the bottom.
 
 ---
 
 ## Next up
 
-1. **Two Pointers** — 12 problems (8E 3M 1H). Valid Palindrome, Two Sum II, Squares of a
-   Sorted Array, Remove Duplicates, Move Zeroes, Reverse String, Merge Sorted Array,
-   Is Subsequence, 3Sum, Container With Most Water, Sort Colors, Trapping Rain Water (H).
-2. **Sliding Window** — 11 problems, needs the fixed-size and variable-size split made
-   obvious in the teach page (already written).
-3. Then patterns 4 → 17 in syllabus order, one commit each.
+Patterns 7 to 17, in syllabus order, one commit each:
+
+1. **Trees: BFS & DFS** — 18 problems (12E 4M 2H). The biggest pattern in the syllabus.
+2. **Tries** — 5 (1E 3M 1H).
+3. **Heap / Priority Queue** — 10 (5E 4M 1H). Merge k Sorted Lists already previewed it.
+4. **Backtracking** — 10 (3E 6M 1H).
+5. **Graphs** — 13 (5E 6M 2H).
+6. Then DP 1-D, DP 2-D, Greedy, Intervals, Bit Manipulation, Math & Geometry.
 
 ## Known gaps, deliberately
 
 - `judgeDriver` is written for every problem so far, which is what makes `--run`
   meaningful. Keep that up: a solution that compiles is not a solution that is correct.
 - No dark/light screenshot in the README yet.
-- No GitHub Pages deploy has happened; nothing has been pushed.
+- Nobody has clicked through the site in a real browser yet. jsdom proves the wiring, not
+  the appearance.
