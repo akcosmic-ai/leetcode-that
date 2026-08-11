@@ -15,7 +15,7 @@ Legend: teach page = the `#/pattern/<id>` page text · template = the reusable J
 | # | Pattern | Teach | Template | Problems | Target |
 |---|---|:---:|:---:|---|---|
 | 1 | Arrays & Hashing | ✅ | ✅ | **15 / 15** ✅ | 10E 4M 1H |
-| 2 | Two Pointers | ✅ | ✅ | 0 / 12 | 8E 3M 1H |
+| 2 | Two Pointers | ✅ | ✅ | **12 / 12** ✅ | 8E 3M 1H |
 | 3 | Sliding Window | ✅ | ✅ | 0 / 11 | 5E 4M 2H |
 | 4 | Stack & Monotonic Stack | ✅ | ✅ | 0 / 12 | 7E 4M 1H |
 | 5 | Binary Search | ✅ | ✅ | 0 / 12 | 8E 3M 1H |

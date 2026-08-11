@@ -93,7 +93,7 @@ Update this table with every pattern commit. `PROGRESS.md` carries the detail.
 | # | Pattern id | Teach page | Template | Problems | Target E/M/H |
 |---|---|---|---|---|---|
 | 1 | `arrays-hashing` | done | done | **15 / 15** | 10 / 4 / 1 |
-| 2 | `two-pointers` | done | done | 0 / 12 | 8 / 3 / 1 |
+| 2 | `two-pointers` | done | done | **12 / 12** | 8 / 3 / 1 |
 | 3 | `sliding-window` | done | done | 0 / 11 | 5 / 4 / 2 |
 | 4 | `stack` | done | done | 0 / 12 | 7 / 4 / 1 |
 | 5 | `binary-search` | done | done | 0 / 12 | 8 / 3 / 1 |
