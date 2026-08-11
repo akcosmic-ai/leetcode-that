@@ -1,0 +1,9 @@
+# Normalise to LF in the repository. This is a web project plus a Java source
+# tree, both of which are happier with LF, and it stops git printing a CRLF
+# conversion warning for every file on every commit.
+* text=auto eol=lf
+
+# The editor bundle is third-party, minified and 426 KB. Do not diff it, and keep
+# it out of GitHub's language statistics so the repo reads as Java, which is what
+# it actually teaches.
+assets/vendor/cm6.bundle.js -diff linguist-vendored

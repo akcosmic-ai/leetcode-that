@@ -94,7 +94,7 @@ Update this table with every pattern commit. `PROGRESS.md` carries the detail.
 |---|---|---|---|---|---|
 | 1 | `arrays-hashing` | done | done | **15 / 15** | 10 / 4 / 1 |
 | 2 | `two-pointers` | done | done | **12 / 12** | 8 / 3 / 1 |
-| 3 | `sliding-window` | done | done | 0 / 11 | 5 / 4 / 2 |
+| 3 | `sliding-window` | done | done | **11 / 11** | 4 / 5 / 2 † |
 | 4 | `stack` | done | done | 0 / 12 | 7 / 4 / 1 |
 | 5 | `binary-search` | done | done | 0 / 12 | 8 / 3 / 1 |
 | 6 | `linked-list` | done | done | 0 / 14 | 9 / 4 / 1 |
@@ -108,7 +108,11 @@ Update this table with every pattern commit. `PROGRESS.md` carries the detail.
 | 14 | `greedy` | done | done | 0 / 10 | 5 / 4 / 1 |
 | 15 | `intervals` | done | done | 0 / 8 | 3 / 4 / 1 |
 | 16 | `bit-manipulation` | done | done | 0 / 10 | 8 / 1 / 1 |
-| 17 | `math-geometry` | done | done | 0 / 11 | 8 / 3 / 0 |
+| 17 | `math-geometry` | done | done | 0 / 11 | 9 / 2 / 0 † |
+
+† Adjusted from the original plan. LeetCode has only about three canonical Easy
+sliding-window problems, so that pattern gives up one Easy slot and Math & Geometry,
+which has Easy problems to spare, takes it. Whole-set mix is unchanged.
 
 ## Workflow
 

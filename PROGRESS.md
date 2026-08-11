@@ -16,7 +16,7 @@ Legend: teach page = the `#/pattern/<id>` page text · template = the reusable J
 |---|---|:---:|:---:|---|---|
 | 1 | Arrays & Hashing | ✅ | ✅ | **15 / 15** ✅ | 10E 4M 1H |
 | 2 | Two Pointers | ✅ | ✅ | **12 / 12** ✅ | 8E 3M 1H |
-| 3 | Sliding Window | ✅ | ✅ | 0 / 11 | 5E 4M 2H |
+| 3 | Sliding Window | ✅ | ✅ | **11 / 11** ✅ | 4E 5M 2H † |
 | 4 | Stack & Monotonic Stack | ✅ | ✅ | 0 / 12 | 7E 4M 1H |
 | 5 | Binary Search | ✅ | ✅ | 0 / 12 | 8E 3M 1H |
 | 6 | Linked List | ✅ | ✅ | 0 / 14 | 9E 4M 1H |
@@ -30,7 +30,12 @@ Legend: teach page = the `#/pattern/<id>` page text · template = the reusable J
 | 14 | Greedy | ✅ | ✅ | 0 / 10 | 5E 4M 1H |
 | 15 | Intervals | ✅ | ✅ | 0 / 8 | 3E 4M 1H |
 | 16 | Bit Manipulation | ✅ | ✅ | 0 / 10 | 8E 1M 1H |
-| 17 | Math & Geometry | ✅ | ✅ | 0 / 11 | 8E 3M 0H |
+| 17 | Math & Geometry | ✅ | ✅ | 0 / 11 | 9E 2M 0H † |
+
+† **Target adjusted, deliberately.** LeetCode has only about three canonical Easy
+sliding-window problems; the technique gets interesting at Medium. Rather than pad that
+pattern with obscure Easy problems, it drops to 4 Easy and Math & Geometry, which has
+Easy problems to spare, picks the slot up. The whole-set target of 55/35/10 is unchanged.
 
 **Written: 15 of ~194.** All 17 teach pages and all 17 Java templates are live and
 compile under JDK 11.
