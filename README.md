@@ -8,6 +8,14 @@ No build step. No server required. No account. Your progress lives in your brows
 
 ---
 
+**Live:** <https://akcosmic-ai.github.io/leetcode-that/>
+
+**Java is the only language you write here.** Every solution and every pattern template
+also exists as a real `.java` file under [`java/src`](java/src), one package per problem,
+each with a runnable `Main`. See [`java/README.md`](java/README.md).
+
+---
+
 ## Open it
 
 **Desktop:** double-click `index.html`. That is the whole install.
@@ -25,10 +33,17 @@ then open <http://localhost:8000>. If you would rather use Python:
 python -m http.server 8000
 ```
 
-**Phone / iPad:** push the repo to GitHub Pages and open the Pages URL, then use
+**Phone / iPad:** open <https://akcosmic-ai.github.io/leetcode-that/>, then use
 *Share → Add to Home Screen* (iOS) or *Install app* (Android). A service worker caches
 everything, so after the first load it works with no signal. Progress is stored per
 device: use **Settings → Export a backup** to move it.
+
+### Enabling GitHub Pages (one time, in the repo settings)
+
+*Settings → Pages → Build and deployment → Source:* **Deploy from a branch**, branch
+`main`, folder `/ (root)`. `index.html` sits at the repo root, so nothing else is needed.
+The `.nojekyll` file at the root stops Jekyll from stripping paths that begin with an
+underscore.
 
 ---
 
@@ -166,7 +181,15 @@ diff scores correctly, the suggestion engine infers types, drafts persist, and t
 page has all eight steps wired. Drop `--file` to run the same suite over `http://`. Both
 paths must pass, because the `file://` run is what proves the no-server claim.
 
-Both exit non-zero on failure.
+```bash
+node tools/export-java.mjs --compile
+```
+
+Regenerates the `java/` tree from the data and compiles **the whole tree at once** with
+`javac`, which also catches package and naming collisions that per-file compilation would
+miss. Commit the regenerated `java/src` alongside the data change.
+
+All three exit non-zero on failure.
 
 ---
 
@@ -188,11 +211,16 @@ js/
 data/
   patterns.js              the 17 techniques and their teach text
   templates/<pattern>.js   one reusable Java template per pattern
-  problems/<pattern>.js    the problems
+  problems/<pattern>.js    the problems  <- the single source of truth
+java/
+  src/lct/<pattern>/<problem>/Solution.java   GENERATED from the data
+  src/lct/<pattern>/<problem>/Main.java       GENERATED, runnable driver
+  src/lct/templates/<pattern>/*.java          GENERATED templates
 tools/
   editor-src.mjs           CodeMirror entry point (build once, never at runtime)
   verify-java.mjs          gate 1: real javac over every solution and template
   smoke-test.mjs           gate 2: loads the page in jsdom and drives it
+  export-java.mjs          gate 3: regenerates java/ and compiles the whole tree
   serve.mjs                zero-dependency static server
   make-icons.mjs           writes the PWA icons
   generate-pages.js        optional static problems/*.html shells for deep links

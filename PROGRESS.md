@@ -57,8 +57,10 @@ compile under JDK 11.
 | Judge0 online run | built, **round trip never executed** (needs your API key) |
 | `tools/verify-java.mjs` gate: real javac + run | done |
 | `tools/smoke-test.mjs` gate: jsdom, http and file:// | done |
+| `tools/export-java.mjs` gate: real `java/src` tree, whole-tree javac | done |
 | `tools/serve.mjs` zero-dependency static server | done |
 | `tools/generate-pages.js` optional static deep-link shells | done |
+| GitHub Pages: `.nojekyll` + root `index.html` | done, **Pages must be switched on in repo settings** |
 
 ---
 
@@ -83,6 +85,16 @@ ALL GREEN: 56 checks passed
 $ node tools/smoke-test.mjs
 loading http://localhost:8765/index.html
 ALL GREEN: 56 checks passed
+
+$ node tools/export-java.mjs --compile
+wrote 49 files under java/
+javac: 47/47 files compiled clean
+ALL GREEN
+
+$ java -cp java/out lct.arrayshashing.twosum.Main
+[0, 1]
+[1, 2]
+[0, 1]
 ```
 
 The mix looks Easy-heavy while only pattern 1 exists. It converges on 55/35/10 as the

@@ -3,6 +3,11 @@
 tools/node_modules/
 tools/package-lock.json
 
+# java/src IS committed (it is the browsable Java tree). Build output is not.
+java/out/
+java/sources.txt
+*.class
+
 # scratch
 *.log
 .DS_Store
