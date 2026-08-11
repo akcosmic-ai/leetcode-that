@@ -96,7 +96,7 @@ Update this table with every pattern commit. `PROGRESS.md` carries the detail.
 | 2 | `two-pointers` | done | done | **12 / 12** | 8 / 3 / 1 |
 | 3 | `sliding-window` | done | done | **11 / 11** | 4 / 5 / 2 † |
 | 4 | `stack` | done | done | **12 / 12** | 7 / 4 / 1 |
-| 5 | `binary-search` | done | done | 0 / 12 | 8 / 3 / 1 |
+| 5 | `binary-search` | done | done | **12 / 12** | 8 / 3 / 1 |
 | 6 | `linked-list` | done | done | 0 / 14 | 9 / 4 / 1 |
 | 7 | `trees` | done | done | 0 / 18 | 12 / 4 / 2 |
 | 8 | `tries` | done | done | 0 / 5 | 1 / 3 / 1 |
