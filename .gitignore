@@ -1,0 +1,12 @@
+# The editor bundle in assets/vendor/ IS committed on purpose: the site must work
+# with no build step. Only the build's own dependencies are ignored.
+tools/node_modules/
+tools/package-lock.json
+
+# scratch
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+tmp/

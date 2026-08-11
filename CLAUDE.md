@@ -1,0 +1,123 @@
+# CLAUDE.md — leetcode-that
+
+A static DSA-by-technique trainer. Read this before touching anything.
+
+## Non-negotiables
+
+1. **No build step at runtime.** Double-clicking `index.html` must work, on `file://`,
+   with no server. That is why:
+   - data files are `.js` assigning to `window.*`, never JSON loaded with `fetch()`
+     (Chrome blocks `fetch()` of local files),
+   - routing is hash-based in one page, not one HTML file per problem,
+   - the CodeMirror bundle is pre-built and **committed** to `assets/vendor/`.
+2. **Data-driven.** Adding a problem is one object in `data/problems/<pattern>.js`.
+   If a change requires editing a `view-*.js` to add content, the design is wrong.
+3. **Never copy LeetCode's problem text.** `problemSummary`, `examples` and
+   `constraints` are paraphrases in our own words. Always set `url` to the official page.
+4. **Every problem carries all eight steps.** Missing `intuition`, `hints` (exactly 3),
+   `signals`, `commonMistakes` or `testCases` is a defect, not a stylistic choice.
+5. **Verify before claiming done.** `node tools/verify-java.mjs --run` must print
+   `ALL GREEN`. It compiles every `javaSolution` and template with the real `javac`, runs
+   any `judgeDriver` against its `testCases`, and checks the schema. Do not tell the user
+   a pattern is finished without running it.
+6. **Do not delete the user's files.** Ask first.
+7. **State uncertainty.** If a feature is unverified (the Judge0 round trip needs the
+   user's API key), say so in the README and in the reply, rather than implying it works.
+
+## Voice
+
+The reader is a working Java engineer who is weak at DSA and whose problem is
+**retention**. So:
+
+- Plain words before jargon. Define the term the first time it appears.
+- Intuition before formalism: dry-run on a tiny input, then code, then Big-O.
+- Comments in solutions explain *why*, not what. He is the reader, not a compiler.
+- Never condescending, never "as you know". No em dashes anywhere.
+
+## Architecture
+
+```
+index.html          loads everything with plain <script> tags, in dependency order
+js/store.js         the ONLY file that touches localStorage (prefix lct.v1.)
+js/srs.js           SM-2. Pure next-state function, so the UI can preview a rating.
+js/editor.js        CM6 mount + Java completion source + type inference + touch keypad
+js/java-api.js      the JDK dictionary. Adding a method = adding one line.
+js/diff.js          LCS line diff. Comparison is on normalised lines, display is raw.
+js/judge.js         Judge0 CE adapter. OFF by default. Never make it a hard dependency.
+js/view-*.js        one function per route on LC.views, returns an optional teardown fn
+js/router.js        hash routes -> LC.views. Calls teardown before the next render.
+data/patterns.js    the 17 techniques + teach text + templateId
+data/templates/*.js one Java template per pattern, keyed into window.LC_TEMPLATES
+data/problems/*.js  push into window.LC_PROBLEMS
+```
+
+Everything hangs off one global, `window.LC`. No modules, no bundler, ES5-flavoured
+syntax in `js/` so old iPad Safari does not choke. `tools/*.mjs` is build-time only and
+may use anything Node supports.
+
+Views build HTML strings and then wire behaviour with `querySelector`. That is a
+deliberate choice over a framework: it keeps the whole app readable with zero tooling.
+
+## Problem data schema
+
+Fully documented in **`data/problems/_SCHEMA.md`**. Required fields:
+
+`id, leetcodeNumber, title, url, pattern, difficulty, order, tags, problemSummary,
+examples[], constraints[], signals[], intuition{input,steps[],takeaway}, hints[3],
+methodSignature, javaSolution, complexity{time,timeWhy,space,spaceWhy}, testCases[],
+commonMistakes[]`
+
+Optional: `techniqueNote, starter, starterExtras, javaTemplate, followUps[], judgeDriver`.
+
+`judgeDriver` is a `public class Main` printing exactly one line per test case, in order.
+It is what enables **Run tests** in Judge0 mode and what `verify-java.mjs --run` checks.
+Prefer to include it: it is the only thing that proves a solution is *correct* rather
+than merely compilable.
+
+## Build status per pattern
+
+Update this table with every pattern commit. `PROGRESS.md` carries the detail.
+
+| # | Pattern id | Teach page | Template | Problems | Target E/M/H |
+|---|---|---|---|---|---|
+| 1 | `arrays-hashing` | done | done | **15 / 15** | 10 / 4 / 1 |
+| 2 | `two-pointers` | done | done | 0 / 12 | 8 / 3 / 1 |
+| 3 | `sliding-window` | done | done | 0 / 11 | 5 / 4 / 2 |
+| 4 | `stack` | done | done | 0 / 12 | 7 / 4 / 1 |
+| 5 | `binary-search` | done | done | 0 / 12 | 8 / 3 / 1 |
+| 6 | `linked-list` | done | done | 0 / 14 | 9 / 4 / 1 |
+| 7 | `trees` | done | done | 0 / 18 | 12 / 4 / 2 |
+| 8 | `tries` | done | done | 0 / 5 | 1 / 3 / 1 |
+| 9 | `heap` | done | done | 0 / 10 | 5 / 4 / 1 |
+| 10 | `backtracking` | done | done | 0 / 10 | 3 / 6 / 1 |
+| 11 | `graphs` | done | done | 0 / 13 | 5 / 6 / 2 |
+| 12 | `dp-1d` | done | done | 0 / 14 | 8 / 5 / 1 |
+| 13 | `dp-2d` | done | done | 0 / 9 | 2 / 5 / 2 |
+| 14 | `greedy` | done | done | 0 / 10 | 5 / 4 / 1 |
+| 15 | `intervals` | done | done | 0 / 8 | 3 / 4 / 1 |
+| 16 | `bit-manipulation` | done | done | 0 / 10 | 8 / 1 / 1 |
+| 17 | `math-geometry` | done | done | 0 / 11 | 8 / 3 / 0 |
+
+## Workflow
+
+- One pattern per commit. Update this table and `PROGRESS.md` in the same commit.
+- Run `node tools/verify-java.mjs --run` before every commit.
+- **Never `git push` without being asked.** Committing locally is fine.
+- Remote is `github.com/akcosmic-ai/leetcode-that`, a personal account. Use plain `git`
+  with the repo-local identity already configured. Do not use the `gh` CLI here: it is
+  authenticated as a work account that must not touch personal repos.
+
+## Gotchas found the hard way
+
+1. Java code lives inside JS **template literals**. A backtick in a Java comment is a
+   syntax error that only shows up when the file is parsed. `verify-java.mjs` catches it.
+2. CodeMirror's `baseTheme` must not set a height. `.ed-host` (fixed, scrollable) and
+   `.ed-static` (auto, for read-only solution display) set it from CSS instead.
+3. Reference solutions are mounted **lazily**, when the reveal is first opened. Do not
+   create 200 CodeMirror instances up front.
+4. `view-problem.js` returns a teardown function. It saves the draft and destroys the
+   editor. Without it, navigating away leaks the instance.
+5. `LC.srs.preview(id, q)` is pure and does not persist. It powers the "rating 3 schedules
+   this for …" hover text. Keep it pure.
+6. Judge0 needs the Java entry class to be `Main`. That is why `judgeDriver` declares
+   `public class Main` and the solution's `class Solution` is package-private.
