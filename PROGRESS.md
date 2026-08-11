@@ -55,22 +55,34 @@ compile under JDK 11.
 | Settings: theme, editor prefs, Judge0, export/import, reset | done |
 | PWA manifest + service worker (installable, offline on mobile) | done |
 | Judge0 online run | built, **round trip never executed** (needs your API key) |
-| `tools/verify-java.mjs` quality gate | done |
+| `tools/verify-java.mjs` gate: real javac + run | done |
+| `tools/smoke-test.mjs` gate: jsdom, http and file:// | done |
+| `tools/serve.mjs` zero-dependency static server | done |
 | `tools/generate-pages.js` optional static deep-link shells | done |
 
 ---
 
 ## Verification log
 
-Run `node tools/verify-java.mjs --run` and paste the tail here after each pattern.
+Both gates must print `ALL GREEN` before a pattern counts as written.
 
 ```
 2026-08-11  scaffold + arrays-hashing
+
+$ node tools/verify-java.mjs --run
 loaded 17 patterns, 17 templates, 15 problems
 compile: 32/32 passed
 run: 15/15 problems produced the expected output
 mix: 15 problems · Easy 10 (67%) · Medium 4 (27%) · Hard 1 (7%)
 ALL GREEN
+
+$ node tools/smoke-test.mjs --file
+loading file:///C:/Personal-Dev/leetcode-that/index.html
+ALL GREEN: 56 checks passed
+
+$ node tools/smoke-test.mjs
+loading http://localhost:8765/index.html
+ALL GREEN: 56 checks passed
 ```
 
 The mix looks Easy-heavy while only pattern 1 exists. It converges on 55/35/10 as the

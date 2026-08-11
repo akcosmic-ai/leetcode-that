@@ -28,7 +28,9 @@
       if (dflt !== null) body += '        return ' + dflt + ';\n';
     }
     var extra = p.starterExtras ? '\n' + p.starterExtras + '\n' : '';
-    return 'class Solution {\n    ' + sig + ' {\n' + body + '    }\n}' + extra + '\n';
+    // The import is always there so that pasting this into Judge0 (or a real IDE)
+    // compiles without you having to remember it. An unused import is harmless.
+    return 'import java.util.*;\n\nclass Solution {\n    ' + sig + ' {\n' + body + '    }\n}' + extra + '\n';
   }
 
   function templateCodeFor(p) {

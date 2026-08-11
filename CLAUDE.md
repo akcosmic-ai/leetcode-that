@@ -16,10 +16,13 @@ A static DSA-by-technique trainer. Read this before touching anything.
    `constraints` are paraphrases in our own words. Always set `url` to the official page.
 4. **Every problem carries all eight steps.** Missing `intuition`, `hints` (exactly 3),
    `signals`, `commonMistakes` or `testCases` is a defect, not a stylistic choice.
-5. **Verify before claiming done.** `node tools/verify-java.mjs --run` must print
-   `ALL GREEN`. It compiles every `javaSolution` and template with the real `javac`, runs
-   any `judgeDriver` against its `testCases`, and checks the schema. Do not tell the user
-   a pattern is finished without running it.
+5. **Verify before claiming done.** Two gates, both must print `ALL GREEN`:
+   - `node tools/verify-java.mjs --run` — compiles every `javaSolution` and template with
+     the real `javac`, runs any `judgeDriver` against its `testCases`, checks the schema.
+   - `node tools/smoke-test.mjs --file` and `node tools/smoke-test.mjs` — loads
+     `index.html` in jsdom from `file://` and from `http://` and drives every route, the
+     scheduler, the diff, the suggestion engine and the problem page.
+   Do not tell the user a pattern is finished without running both.
 6. **Do not delete the user's files.** Ask first.
 7. **State uncertainty.** If a feature is unverified (the Judge0 round trip needs the
    user's API key), say so in the README and in the reply, rather than implying it works.
@@ -101,7 +104,8 @@ Update this table with every pattern commit. `PROGRESS.md` carries the detail.
 ## Workflow
 
 - One pattern per commit. Update this table and `PROGRESS.md` in the same commit.
-- Run `node tools/verify-java.mjs --run` before every commit.
+- Run both gates before every commit (see rule 5), and paste the tails into the
+  verification log in `PROGRESS.md`.
 - **Never `git push` without being asked.** Committing locally is fine.
 - Remote is `github.com/akcosmic-ai/leetcode-that`, a personal account. Use plain `git`
   with the repo-local identity already configured. Do not use the `gh` CLI here: it is

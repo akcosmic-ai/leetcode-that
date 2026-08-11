@@ -13,7 +13,7 @@
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -36,8 +36,18 @@ vc.on('log', () => {});
 vc.on('info', () => {});
 vc.on('debug', () => {});
 
+/* --file runs the whole suite against a file:// URL instead of http://, which is
+ * what double-clicking index.html does. It is the check behind the "no server
+ * needed" claim: if any script were a module, or any data were fetched instead
+ * of script-tagged, this run would fail while the http run passed. */
+const AS_FILE = process.argv.includes('--file');
+const PAGE_URL = AS_FILE
+  ? pathToFileURL(join(ROOT, 'index.html')).href
+  : 'http://localhost:8765/index.html';
+console.log('loading ' + PAGE_URL + '\n');
+
 const dom = new JSDOM(readFileSync(join(ROOT, 'index.html'), 'utf8'), {
-  url: 'http://localhost:8765/index.html',
+  url: PAGE_URL,
   runScripts: 'dangerously',
   resources: 'usable',
   pretendToBeVisual: true,

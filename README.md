@@ -13,13 +13,17 @@ No build step. No server required. No account. Your progress lives in your brows
 **Desktop:** double-click `index.html`. That is the whole install.
 
 **Or serve it** (needed only for the optional online-run mode and for the offline phone
-install):
+install). There is a zero-dependency server in the repo:
+
+```bash
+node tools/serve.mjs
+```
+
+then open <http://localhost:8000>. If you would rather use Python:
 
 ```bash
 python -m http.server 8000
 ```
-
-then open <http://localhost:8000>.
 
 **Phone / iPad:** push the repo to GitHub Pages and open the Pages URL, then use
 *Share → Add to Home Screen* (iOS) or *Install app* (Android). A service worker caches
@@ -141,17 +145,28 @@ that array — **no layout file is ever touched.**
 The schema is documented field by field in
 [`data/problems/_SCHEMA.md`](data/problems/_SCHEMA.md).
 
-Then check it:
+Then check it. There are two gates, and nothing is called "done" without both printing
+`ALL GREEN`.
 
 ```bash
 node tools/verify-java.mjs --run
 ```
 
-That loads every data file, compiles every `javaSolution` and every pattern template with
-your real `javac`, executes any problem that has a `judgeDriver` and compares the output
-to its `testCases`, and reports the difficulty mix plus schema violations. It exits
-non-zero if anything is off. Nothing is called "done" here without it printing
-`ALL GREEN`.
+Loads every data file, compiles every `javaSolution` and every pattern template with your
+real `javac`, executes any problem that has a `judgeDriver` and compares the output to its
+`testCases`, and reports the difficulty mix plus schema violations.
+
+```bash
+node tools/smoke-test.mjs --file
+```
+
+Loads `index.html` in a real DOM (jsdom) from a `file://` URL and exercises the app: every
+route renders, the editor mounts, the SM-2 maths advances as the README describes, the
+diff scores correctly, the suggestion engine infers types, drafts persist, and the problem
+page has all eight steps wired. Drop `--file` to run the same suite over `http://`. Both
+paths must pass, because the `file://` run is what proves the no-server claim.
+
+Both exit non-zero on failure.
 
 ---
 
@@ -176,7 +191,9 @@ data/
   problems/<pattern>.js    the problems
 tools/
   editor-src.mjs           CodeMirror entry point (build once, never at runtime)
-  verify-java.mjs          the quality gate above
+  verify-java.mjs          gate 1: real javac over every solution and template
+  smoke-test.mjs           gate 2: loads the page in jsdom and drives it
+  serve.mjs                zero-dependency static server
   make-icons.mjs           writes the PWA icons
   generate-pages.js        optional static problems/*.html shells for deep links
 ```
