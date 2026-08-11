@@ -17,7 +17,7 @@ Legend: teach page = the `#/pattern/<id>` page text · template = the reusable J
 | 1 | Arrays & Hashing | ✅ | ✅ | **15 / 15** ✅ | 10E 4M 1H |
 | 2 | Two Pointers | ✅ | ✅ | **12 / 12** ✅ | 8E 3M 1H |
 | 3 | Sliding Window | ✅ | ✅ | **11 / 11** ✅ | 4E 5M 2H † |
-| 4 | Stack & Monotonic Stack | ✅ | ✅ | 0 / 12 | 7E 4M 1H |
+| 4 | Stack & Monotonic Stack | ✅ | ✅ | **12 / 12** ✅ | 7E 4M 1H |
 | 5 | Binary Search | ✅ | ✅ | 0 / 12 | 8E 3M 1H |
 | 6 | Linked List | ✅ | ✅ | 0 / 14 | 9E 4M 1H |
 | 7 | Trees: BFS & DFS | ✅ | ✅ | 0 / 18 | 12E 4M 2H |
